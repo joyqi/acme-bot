@@ -37,3 +37,7 @@ acme-bot 支持以下环境变量：
 - `NOTIFY`: （可选）通知方式 `notify-hook`，你可以指定各种通知方式，具体支持的列表请参考 [acme.sh 的文档](https://github.com/acmesh-official/acme.sh/wiki/notify)。多个 `notify-hook` 用逗号分隔。
 
 ⚠️注意：以上配置信息中的 `dns_api`、`deploy_hook` 和 `notify-hook` 指定后都需要配置对应的环境变量，具体的环境变量请参考 [acme.sh 的文档](https://github.com/acmesh-official/acme.sh/wiki)。
+
+## 关于 `alicdn`
+
+由于 acme.sh 一直没有处理[关于阿里云 CDN 的 PR](https://github.com/acmesh-official/acme.sh/pull/3375)，导致 acme.sh 无法自动部署证书到阿里云 CDN。因此，acme-bot 参考原 PR 提供了一个 `alicdn` 的部署钩子，用于自动部署证书到阿里云 CDN。
