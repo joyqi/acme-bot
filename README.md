@@ -32,7 +32,7 @@ docker run -d \
 acme-bot 支持以下环境变量：
 
 - `EMAIL`:（必须）你的邮箱地址，用于注册 acme.sh 账号。
-- `DOMAINS`: （必须）你的域名和 DNS API 的信息，格式为 `dns_api:domain1,domain2,...[/deploy_hook]`。其中 `dns_api` 是你的 DNS API 的名称，具体支持的列表请参考 [acme.sh 的文档](https://github.com/acmesh-official/acme.sh/wiki/dnsapi)。`domain1,domain2,...` 是你的域名列表，用逗号分隔。`/deploy_hook` 是可选的，用于指定证书在发布/更新后的部署方法，具体支持的列表请参考 [acme.sh 的文档](https://github.com/acmesh-official/acme.sh/wiki/deployhooks)。
+- `DOMAINS`: （必须）你的域名和 DNS API 的信息，格式为 `dns_api:domain1,*.domain1,...[/deploy_hook]`。其中 `dns_api` 是你的 DNS API 的名称，具体支持的列表请参考 [acme.sh 的文档](https://github.com/acmesh-official/acme.sh/wiki/dnsapi)。`domain1,*.domain1,...` 是你的域名和泛域名列表，用逗号分隔。`/deploy_hook` 是可选的，用于指定证书在发布/更新后的部署方法，具体支持的列表请参考 [acme.sh 的文档](https://github.com/acmesh-official/acme.sh/wiki/deployhooks)。
 - `CA`: （可选）acme.sh 的 ACME 服务器，默认为 zerossl，你可以指定其它的 ACME 服务器，具体支持的列表请参考 [acme.sh 的文档](https://github.com/acmesh-official/acme.sh/wiki/Server)。
 - `NOTIFY`: （可选）通知方式 `notify-hook`，你可以指定各种通知方式，具体支持的列表请参考 [acme.sh 的文档](https://github.com/acmesh-official/acme.sh/wiki/notify)。多个 `notify-hook` 用逗号分隔。
 
@@ -41,3 +41,7 @@ acme-bot 支持以下环境变量：
 ## 关于 `alicdn`
 
 由于 acme.sh 一直没有处理[关于阿里云 CDN 的 PR](https://github.com/acmesh-official/acme.sh/pull/3375)，导致 acme.sh 无法自动部署证书到阿里云 CDN。因此，acme-bot 参考原 PR 提供了一个 `alicdn` 的部署钩子，用于自动部署证书到阿里云 CDN。
+
+一般情况下如果你使用了 `dns_ali` 作为 DNS API，那么 `alicdn` 会直接使用 `Ali_Key` 和 `Ali_Secret` 作为阿里云 CDN 的密钥。如果你使用了其它的 DNS API，那么你需要额外配置 `ALI_CDN_KEY` 和 `ALI_CDN_SECRET` 作为阿里云 CDN 的密钥。
+
+如果生成的证书包含多个子域名和泛域名，那么你可能需要通过设置 `ALI_CDN_DOMAIN` 来指定 CDN 的域名。
