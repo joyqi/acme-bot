@@ -9,3 +9,11 @@ RUN apk add --no-cache bash \
     && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/aliyun/aliyun-cli/HEAD/install.sh)" \
     && mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 
+# Overwrite the entry.sh
+COPY entry.sh /entry.sh
+
+# Add aliyun.sh
+COPY alicdn.sh /root/.acme.sh/deploy/alicdn.sh
+
+ENTRYPOINT ["/entry.sh"]
+CMD ["daemon"]

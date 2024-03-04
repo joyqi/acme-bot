@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+  acme:
+    image: joyqi:acme-bot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - EMAIL=hello@example.com
+      - DOMAINS=dns_ali:example.com
+    # You can use env_file to load environment variables from a file
+    #env_file:
+    #  - .env
+    volumes:
+      - ${PWD}/acme:/acme.sh
